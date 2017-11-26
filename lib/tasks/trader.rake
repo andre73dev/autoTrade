@@ -1,20 +1,45 @@
-namespace :trader => :environment  do
+namespace :trader do
   desc 'tdade worker'
   require 'zaif'
   require 'pp'
   
   #test
-  task :test do
+  task :test => :environment do
     api = Zaif::API.new(:api_key => Rails.application.secrets.zaif_api_key,
     :api_srcret => Rails.application.secrets.zaif_api_srcret)
   
     #puts "BTC/JPY : " + api.get_last_price("btc").to_s
-    puts "BTC/JPY : " + api.get_ticker("btc").to_s
-
+    #puts "BTC/JPY : " + api.get_ticker("btc").to_s
+    
+    _ticker = api.get_ticker("btc")
+    
+    if _ticker
+      
+      puts _ticker
+      
+      insertTicker("btc", "jpy", _ticker)
+    end
   end
   
   
   private
+  
+  def insertTicker( code, counter_code, data)
+    _ticker = Ticker.new
+    
+    _ticker.cur_code = code
+    _ticker.ctr_cur_code = counter_code
+    _ticker.last = data['last']
+    _ticker.high = data['high']
+    _ticker.low = data['low']
+    _ticker.vwap = data['vwap']
+    _ticker.volume = data['volume']
+    _ticker.bid = data['bid']
+    _ticker.ask = data['ask']
+    
+    _ticker.save
+    
+  end
   
   
   
