@@ -11,19 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171130154340) do
+ActiveRecord::Schema.define(version: 20171202135004) do
 
   create_table "funds", force: :cascade do |t|
+    t.string   "currency_code"
     t.decimal  "funds"
     t.decimal  "deposit"
-    t.integer  "order_no"
-    t.integer  "order_no_total"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "order_id"
     t.string   "currency_pair"
     t.string   "action"
-    t.decimal  "amount",         precision: 10, scale: 4
+    t.decimal  "amount",        precision: 10, scale: 4
     t.decimal  "price"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.decimal  "fee"
+    t.string   "your_action"
+    t.decimal  "bonus"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
   create_table "tickers", force: :cascade do |t|

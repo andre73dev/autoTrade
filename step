@@ -1,0 +1,23 @@
+
+[1mFrom:[0m /usr/local/rvm/gems/ruby-2.3.0/gems/railties-4.2.6/lib/rails/application.rb @ line 402 Rails::Application#secrets:
+
+    [1;34m385[0m: [32mdef[0m [1;34msecrets[0m
+    [1;34m386[0m:   @secrets ||= [32mbegin[0m
+    [1;34m387[0m:     secrets = [1;34;4mActiveSupport[0m::[1;34;4mOrderedOptions[0m.new
+    [1;34m388[0m:     yaml = config.paths[[31m[1;31m"[0m[31mconfig/secrets[1;31m"[0m[31m[0m].first
+    [1;34m389[0m:     [32mif[0m [1;34;4mFile[0m.exist?(yaml)
+    [1;34m390[0m:       require [31m[1;31m"[0m[31merb[1;31m"[0m[31m[0m
+    [1;34m391[0m:       all_secrets = [1;34;4mYAML[0m.load([1;34;4mERB[0m.new([1;34;4mIO[0m.read(yaml)).result) || {}
+    [1;34m392[0m:       env_secrets = all_secrets[[1;34;4mRails[0m.env]
+    [1;34m393[0m:       secrets.merge!(env_secrets.symbolize_keys) [32mif[0m env_secrets
+    [1;34m394[0m:     [32mend[0m
+    [1;34m395[0m: 
+    [1;34m396[0m:     [1;34m# Fallback to config.secret_key_base if secrets.secret_key_base isn't set[0m
+    [1;34m397[0m:     secrets.secret_key_base ||= config.secret_key_base
+    [1;34m398[0m:     [1;34m# Fallback to config.secret_token if secrets.secret_token isn't set[0m
+    [1;34m399[0m:     secrets.secret_token ||= config.secret_token
+    [1;34m400[0m: 
+    [1;34m401[0m:     secrets
+ => [1;34m402[0m:   [32mend[0m
+    [1;34m403[0m: [32mend[0m
+
